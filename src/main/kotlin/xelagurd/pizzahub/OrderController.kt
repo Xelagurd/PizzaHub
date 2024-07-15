@@ -1,7 +1,9 @@
 package xelagurd.pizzahub
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import jakarta.validation.Valid
 import org.springframework.stereotype.Controller
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -22,9 +24,14 @@ class OrderController {
 
     @PostMapping
     fun processOrder(
-        order: PizzaOrder,
+        @Valid order: PizzaOrder,
+        errors: Errors,
         sessionStatus: SessionStatus
     ): String {
+        if (errors.hasErrors()) {
+            return "orderForm"
+        }
+
         logger.info { "Order submitted: $order" }
         sessionStatus.setComplete()
         return "redirect:/"
