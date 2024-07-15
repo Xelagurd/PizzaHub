@@ -1,8 +1,10 @@
 package xelagurd.pizzahub
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import jakarta.validation.Valid
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
@@ -56,9 +58,14 @@ class DesignPizzaController {
 
     @PostMapping
     fun processPizza(
-        pizza: Pizza,
+        @Valid pizza: Pizza,
+        errors: Errors,
         @ModelAttribute pizzaOrder: PizzaOrder
     ): String {
+        if (errors.hasErrors()) {
+            return "design"
+        }
+
         pizzaOrder.addPizza(pizza)
         logger.info { "Processing pizza: $pizza" }
         return "redirect:/orders/current"
