@@ -1,15 +1,15 @@
 package xelagurd.pizzahub
 
 data class PizzaOrder(
-    val deliveryName: String = "",
-    val deliveryStreet: String = "",
-    val deliveryCity: String = "",
-    val deliveryState: String = "",
-    val deliveryZip: String = "",
-    val ccNumber: String = "",
-    val ccExpiration: String = "",
-    val ccCVV: String = "",
-    val pizzas: ArrayList<Pizza> = ArrayList()
+    var deliveryName: String = "",
+    var deliveryStreet: String = "",
+    var deliveryCity: String = "",
+    var deliveryState: String = "",
+    var deliveryZip: String = "",
+    var ccNumber: String = "",
+    var ccExpiration: String = "",
+    var ccCVV: String = "",
+    val pizzas: ArrayList<Pizza> = arrayListOf()
 ) {
     fun addPizza(pizza: Pizza) {
         this.pizzas.add(pizza)
