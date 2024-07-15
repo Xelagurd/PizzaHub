@@ -1,4 +1,4 @@
-package xelagurd.pizzaproject
+package xelagurd.pizzahub
 
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
