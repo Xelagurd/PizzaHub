@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.CreditCardNumber
+import org.springframework.data.annotation.Id
 import java.util.*
-import kotlin.collections.ArrayList
 
 data class PizzaOrder(
+    @field:Id
     var id: Long? = null,
 
     @field:NotBlank(message = "Delivery name is required")
