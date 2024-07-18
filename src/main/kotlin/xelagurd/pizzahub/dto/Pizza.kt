@@ -1,10 +1,12 @@
 package xelagurd.pizzahub.dto
 
 import jakarta.validation.constraints.Size
+import org.springframework.data.annotation.Id
 import java.util.*
 import kotlin.collections.ArrayList
 
 data class Pizza(
+    @field:Id
     var id: Long? = null,
 
     @field:Size(min = 5, max = 50, message = "Name must be at least 5 characters long")
