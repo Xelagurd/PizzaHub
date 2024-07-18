@@ -1,4 +1,4 @@
-package xelagurd.pizzahub
+package xelagurd.pizzahub.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid
@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
+import xelagurd.pizzahub.repository.OrderRepository
+import xelagurd.pizzahub.dto.PizzaOrder
 
 
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("pizzaOrder")
-class OrderController {
+class OrderController(val orderRepository: OrderRepository) {
     private val logger = KotlinLogging.logger {}
 
     @GetMapping("/current")
@@ -32,6 +34,7 @@ class OrderController {
             return "orderForm"
         }
 
+        orderRepository.save(order)
         logger.info { "Order submitted: $order" }
         sessionStatus.setComplete()
         return "redirect:/"

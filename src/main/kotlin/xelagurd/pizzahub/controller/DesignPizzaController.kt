@@ -1,4 +1,4 @@
-package xelagurd.pizzahub
+package xelagurd.pizzahub.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid
@@ -10,28 +10,21 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
+import xelagurd.pizzahub.dto.Ingredient
+import xelagurd.pizzahub.repository.IngredientRepository
+import xelagurd.pizzahub.dto.Pizza
+import xelagurd.pizzahub.dto.PizzaOrder
 
 
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("pizzaOrder")
-class DesignPizzaController {
+class DesignPizzaController(val ingredientRepository: IngredientRepository) {
     private val logger = KotlinLogging.logger {}
 
     @ModelAttribute
     fun addIngredientsToModel(model: Model) {
-        val ingredients = listOf(
-            Ingredient("FLTO", "Flour Tortilla", Ingredient.IngredientType.WRAP),
-            Ingredient("COTO", "Corn Tortilla", Ingredient.IngredientType.WRAP),
-            Ingredient("GRBF", "Ground Beef", Ingredient.IngredientType.PROTEIN),
-            Ingredient("CARN", "Carnitas", Ingredient.IngredientType.PROTEIN),
-            Ingredient("TMTO", "Diced Tomatoes", Ingredient.IngredientType.VEGGIES),
-            Ingredient("LETC", "Lettuce", Ingredient.IngredientType.VEGGIES),
-            Ingredient("CHED", "Cheddar", Ingredient.IngredientType.CHEESE),
-            Ingredient("JACK", "Monterrey Jack", Ingredient.IngredientType.CHEESE),
-            Ingredient("SLSA", "Salsa", Ingredient.IngredientType.SAUCE),
-            Ingredient("SRCR", "Sour Cream", Ingredient.IngredientType.SAUCE)
-        )
+        val ingredients = ingredientRepository.findAll()
 
         for (type in Ingredient.IngredientType.entries) {
             model.addAttribute(
