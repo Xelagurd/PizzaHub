@@ -1,16 +1,18 @@
 package xelagurd.pizzahub.dto
 
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 import jakarta.validation.constraints.Size
-import org.springframework.data.annotation.Id
 
-data class Ingredient(
+@Entity
+class Ingredient(
     @field:Id
-    val id: String,
+    var id: String? = null,
 
     @field:Size(max = 25, message = "Name must be no more 25 characters long")
-    val name: String,
+    var name: String = "",
 
-    val type: IngredientType
+    var type: IngredientType? = null
 ) {
     enum class IngredientType {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
