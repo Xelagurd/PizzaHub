@@ -1,23 +1,22 @@
 package xelagurd.pizzahub.dto
 
-import jakarta.persistence.CascadeType
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
+import com.datastax.oss.driver.api.core.uuid.Uuids
 import jakarta.validation.constraints.Digits
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.CreditCardNumber
+import org.springframework.data.cassandra.core.mapping.Column
+import org.springframework.data.cassandra.core.mapping.PrimaryKey
+import org.springframework.data.cassandra.core.mapping.Table
+import xelagurd.pizzahub.udt.PizzaUDT
+import xelagurd.pizzahub.udt.utils.PizzaUDRUtils
 import java.util.*
 
-@Entity
+@Table("orders")
 class PizzaOrder(
-    @field:Id
-    @field:GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null,
+    @field:PrimaryKey
+    var id: UUID? = Uuids.timeBased(),
 
     @field:NotBlank(message = "Delivery name is required")
     var deliveryName: String = "",
@@ -45,12 +44,16 @@ class PizzaOrder(
     @field:Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     var ccCVV: String = "",
 
-    @field:OneToMany(cascade = [CascadeType.ALL])
-    var pizzas: MutableList<Pizza> = arrayListOf(),
+    @field:Column("pizzas")
+    var pizzas: MutableList<PizzaUDT> = arrayListOf(),
 
     var placedAt: Date = Date()
 ) {
     fun addPizza(pizza: Pizza) {
-        this.pizzas.add(pizza)
+        this.pizzas.add(PizzaUDRUtils.toPizzaUDT(pizza))
+    }
+
+    override fun toString(): String {
+        return "PizzaOrder(deliveryName=$deliveryName, pizzas=$pizzas)"
     }
 }
