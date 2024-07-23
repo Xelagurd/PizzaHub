@@ -1,12 +1,12 @@
 package xelagurd.pizzahub.dto
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
 import jakarta.validation.constraints.Size
+import org.springframework.data.cassandra.core.mapping.PrimaryKey
+import org.springframework.data.cassandra.core.mapping.Table
 
-@Entity
+@Table("ingredients")
 class Ingredient(
-    @field:Id
+    @field:PrimaryKey
     var id: String? = null,
 
     @field:Size(max = 25, message = "Name must be no more 25 characters long")
