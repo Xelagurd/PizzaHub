@@ -1,10 +1,10 @@
 package xelagurd.pizzahub.dto
 
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 import jakarta.validation.constraints.Size
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
 
-@Document(collection = "ingredients")
+@Entity
 class Ingredient(
     @field:Id
     var id: String? = null,
