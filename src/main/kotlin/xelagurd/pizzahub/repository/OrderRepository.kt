@@ -4,4 +4,4 @@ import org.springframework.data.repository.CrudRepository
 import xelagurd.pizzahub.dto.PizzaOrder
 import java.util.*
 
-interface OrderRepository : CrudRepository<PizzaOrder, UUID>
+interface OrderRepository : CrudRepository<PizzaOrder, String>

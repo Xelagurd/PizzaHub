@@ -1,12 +1,12 @@
 package xelagurd.pizzahub.dto
 
 import jakarta.validation.constraints.Size
-import org.springframework.data.cassandra.core.mapping.PrimaryKey
-import org.springframework.data.cassandra.core.mapping.Table
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
-@Table("ingredients")
+@Document(collection = "ingredients")
 class Ingredient(
-    @field:PrimaryKey
+    @field:Id
     var id: String? = null,
 
     @field:Size(max = 25, message = "Name must be no more 25 characters long")
