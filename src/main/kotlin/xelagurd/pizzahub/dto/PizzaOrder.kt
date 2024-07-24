@@ -1,18 +1,23 @@
 package xelagurd.pizzahub.dto
 
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.validation.constraints.Digits
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.CreditCardNumber
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
-@Document(collection = "orders")
+@Entity
 class PizzaOrder(
     @field:Id
-    var id: String? = null,
+    @field:GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long? = null,
 
     @field:NotBlank(message = "Delivery name is required")
     var deliveryName: String = "",
@@ -40,6 +45,7 @@ class PizzaOrder(
     @field:Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     var ccCVV: String = "",
 
+    @field:OneToMany(cascade = [CascadeType.ALL])
     var pizzas: MutableList<Pizza> = arrayListOf(),
 
     var placedAt: Date = Date()
