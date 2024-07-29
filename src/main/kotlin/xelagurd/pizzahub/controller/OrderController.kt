@@ -2,8 +2,11 @@ package xelagurd.pizzahub.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.data.domain.PageRequest
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
+import xelagurd.pizzahub.controller.utils.OrderProps
 import xelagurd.pizzahub.repository.OrderRepository
 import xelagurd.pizzahub.dto.PizzaOrder
 import xelagurd.pizzahub.dto.User
@@ -19,7 +23,7 @@ import xelagurd.pizzahub.dto.User
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("pizzaOrder")
-class OrderController(private val orderRepository: OrderRepository) {
+class OrderController(private val orderRepository: OrderRepository, private val orderProps: OrderProps) {
     private val logger = KotlinLogging.logger {}
 
     @GetMapping("/current")
@@ -64,5 +68,20 @@ class OrderController(private val orderRepository: OrderRepository) {
         logger.info { "Order submitted: $order" }
 
         return "redirect:/"
+    }
+
+    @GetMapping
+    fun ordersForUser(
+        @AuthenticationPrincipal user: User,
+        model: Model
+    ): String {
+        val pageable = PageRequest.of(0, orderProps.pageSize)
+
+        model.addAttribute(
+            "orders",
+            orderRepository.findByUserOrderByPlacedAtDesc(user, pageable)
+        )
+
+        return "orderList"
     }
 }
