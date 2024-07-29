@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     testImplementation("org.springframework.security:spring-security-test")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -5,10 +5,12 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToMany
+import jakarta.persistence.PrePersist
 import jakarta.validation.constraints.Size
 import java.util.*
 
-@Entity
+
+@Entity(name = "pizzas")
 class Pizza(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,10 +23,15 @@ class Pizza(
     @field:ManyToMany
     var ingredients: MutableList<Ingredient> = arrayListOf(),
 
-    var createdAt: Date = Date()
+    var createdAt: Date? = null
 ) {
     fun addIngredient(ingredient: Ingredient) {
         this.ingredients.add(ingredient)
+    }
+
+    @PrePersist
+    fun createdAt() {
+        this.createdAt = Date()
     }
 
     override fun toString(): String {

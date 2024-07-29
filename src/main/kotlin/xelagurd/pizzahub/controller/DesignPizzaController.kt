@@ -2,6 +2,7 @@ package xelagurd.pizzahub.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.Errors
@@ -11,15 +12,20 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import xelagurd.pizzahub.dto.Ingredient
-import xelagurd.pizzahub.repository.IngredientRepository
 import xelagurd.pizzahub.dto.Pizza
 import xelagurd.pizzahub.dto.PizzaOrder
+import xelagurd.pizzahub.dto.User
+import xelagurd.pizzahub.repository.IngredientRepository
+import xelagurd.pizzahub.repository.PizzaRepository
 
 
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("pizzaOrder")
-class DesignPizzaController(val ingredientRepository: IngredientRepository) {
+class DesignPizzaController(
+    private val ingredientRepository: IngredientRepository,
+    private val pizzaRepository: PizzaRepository
+) {
     private val logger = KotlinLogging.logger {}
 
     @ModelAttribute
@@ -44,6 +50,11 @@ class DesignPizzaController(val ingredientRepository: IngredientRepository) {
         return Pizza()
     }
 
+    @ModelAttribute(name = "user")
+    fun user(@AuthenticationPrincipal user: User): User {
+        return user
+    }
+
     @GetMapping
     fun showDesignForm(): String {
         return "design"
@@ -59,8 +70,11 @@ class DesignPizzaController(val ingredientRepository: IngredientRepository) {
             return "design"
         }
 
-        pizzaOrder.addPizza(pizza)
-        logger.info { "Processing pizza: $pizza" }
+        val savedPizza = pizzaRepository.save(pizza)
+        pizzaOrder.addPizza(savedPizza)
+
+        logger.info { "Added pizza: $pizza" }
+
         return "redirect:/orders/current"
     }
 }
