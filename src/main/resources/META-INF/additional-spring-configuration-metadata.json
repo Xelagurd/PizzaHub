@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "pizza.orders.pageSize",
+      "type": "kotlin.Int",
+      "description": "Sets the maximum number of orders to display in a list."
+    },
+    {
+      "name": "pizza.discount.codes",
+      "type": "kotlin.collections.Map<kotlin.String, kotlin.Int>",
+      "description": "A map of discount codes to a discount percentage."
+    }
+  ]
+}
