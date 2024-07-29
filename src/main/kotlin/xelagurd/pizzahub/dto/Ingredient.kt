@@ -4,7 +4,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.validation.constraints.Size
 
-@Entity
+
+@Entity(name = "ingredients")
 class Ingredient(
     @field:Id
     var id: String? = null,
