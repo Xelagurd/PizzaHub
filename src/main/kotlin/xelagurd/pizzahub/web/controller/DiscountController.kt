@@ -1,10 +1,10 @@
-package xelagurd.pizzahub.controller
+package xelagurd.pizzahub.web.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import xelagurd.pizzahub.controller.utils.DiscountCodeProps
+import xelagurd.pizzahub.web.utils.DiscountCodeProps
 
 @Controller
 @RequestMapping("/discounts")

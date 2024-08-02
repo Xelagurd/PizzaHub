@@ -1,4 +1,4 @@
-package xelagurd.pizzahub.controller.utils
+package xelagurd.pizzahub.web.utils
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component

@@ -12,10 +12,12 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.CreditCardNumber
+import org.springframework.data.rest.core.annotation.RestResource
 import java.util.*
 
 
 @Entity(name = "orders")
+@RestResource(rel="orders", path="orders")
 class PizzaOrder(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.AUTO)
