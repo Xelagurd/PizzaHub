@@ -1,8 +1,7 @@
-package xelagurd.pizzahub.controller
+package xelagurd.pizzahub.web.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid
-import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.data.domain.PageRequest
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
-import xelagurd.pizzahub.controller.utils.OrderProps
+import xelagurd.pizzahub.web.utils.OrderProps
 import xelagurd.pizzahub.repository.OrderRepository
 import xelagurd.pizzahub.dto.PizzaOrder
 import xelagurd.pizzahub.dto.User

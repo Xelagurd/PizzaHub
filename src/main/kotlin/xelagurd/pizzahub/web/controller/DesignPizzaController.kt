@@ -1,4 +1,4 @@
-package xelagurd.pizzahub.controller
+package xelagurd.pizzahub.web.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.validation.Valid

@@ -1,4 +1,4 @@
-package xelagurd.pizzahub.controller.service
+package xelagurd.pizzahub.web.service
 
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Service

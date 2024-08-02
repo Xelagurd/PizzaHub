@@ -1,11 +1,11 @@
-package xelagurd.pizzahub.controller
+package xelagurd.pizzahub.web.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import xelagurd.pizzahub.controller.service.AdminService
+import xelagurd.pizzahub.web.service.AdminService
 
 @Controller
 @RequestMapping("/admin")
