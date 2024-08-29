@@ -1,4 +1,4 @@
-package xelagurd.pizzahub.web.controller.rest
+package xelagurd.pizzahub.rest.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.dao.EmptyResultDataAccessException
@@ -27,7 +27,7 @@ import kotlin.jvm.optionals.getOrNull
 
 @RestController
 @RequestMapping(path = ["/api/pizzas"], produces = ["application/json"])
-@CrossOrigin(origins = ["http://puzzahub:8080"])
+@CrossOrigin(origins = ["http://localhost:8080"])
 class PizzaController(private val pizzaRepository: PizzaRepository, private val orderRepository: OrderRepository) {
     private val logger = KotlinLogging.logger {}
 

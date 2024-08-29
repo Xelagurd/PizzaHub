@@ -1,4 +1,4 @@
-package xelagurd.pizzahub.security
+package xelagurd.pizzahub
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -35,6 +35,7 @@ class SecurityConfig {
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .cors { }
             .authorizeHttpRequests {
                 it.requestMatchers( "/design", "/orders").hasRole("USER")
                     .anyRequest().permitAll()
